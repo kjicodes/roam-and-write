@@ -1,0 +1,67 @@
+{% include 'header.html' %}
+
+<div id="section-intro">
+    <div class="container">
+
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 id="test-h1" class="">My Paradise</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">
+                    All Posts will go here.
+                    Let's add some content.
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('create_post')}}" class="btn btn-light btn-lg px-4 gap-3" role="button">Add
+                        Post</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row d-flex align-items-center justify-content-center ">
+        <div class="row d-flex justify-content-around pb-5">
+            <div class="col-4">
+                <a href="#" class="list-group-item list-group-item-action d-flex  gap-3 py-3" aria-current="true">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h3 class="mb-0 text-light">List group item heading</h3>
+                            <p class="mb-0 opacity-75 text-light">Subtitle text here.</p>
+                            <p class="mb-0 opacity-75 text-light fst-italic">Written by Kate I. on January 1st, 2026.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 35rem;">
+                    <img src="../static/images/travel-blog-cover.png" alt="test img" />
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-around pb-5">
+            <div class="col-4">
+                <a href="#" class="list-group-item list-group-item-action d-flex  gap-3 py-3" aria-current="true">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h3 class="mb-0 text-light">Another list title heading</h3>
+                            <p class="mb-0 opacity-75 text-light">Subtitle text here.</p>
+
+                            <p class="mb-0 opacity-75 text-light fst-italic">Written by Kate I. on January 1st, 2026.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 35rem;">
+                    <img src="../static/images/travel-blog-cover.png" alt="test img" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% include 'footer.html' %}

@@ -1,0 +1,53 @@
+{% block content %}
+{% include 'header.html' %}
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-6 border border-2 border-light rounded p-5">
+            <form method="POST" action="{{ url_for('create_post') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.title.label(class="form-label text-light") }}
+                    {{ form.title(size=30, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.subtitle.label(class="form-label text-light") }}
+                    {{ form.subtitle(size=30, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.location.label(class="form-label text-light") }}
+                    {{ form.location(size=30, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.num_times_visited.label(class="form-label text-light") }}
+                    {{ form.num_times_visited(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.body.label(class="form-label text-light") }}
+                    {{ form.body(size=250, class="form-control") }}
+                </div>
+                <div class="form-check py-2">
+                    {{ form.visit_again(class="form-check-input") }}
+                    {{ form.visit_again.label(class="form-check-label text-light") }}
+                </div>
+                <div class="form-group">
+                    {{ form.rating.label(class="form-label text-light") }}
+                    {{ form.rating(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.img_url.label(class="form-label text-light") }}
+                    {{ form.img_url(size=30, class="form-control") }}
+                </div>
+                <div class="form-group pt-4">
+                    {{ form.submit() }}
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
