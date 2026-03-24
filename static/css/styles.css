@@ -1,0 +1,61 @@
+#test-h1 {
+    font-weight: bold;
+    font-size: 3rem;
+    color: black;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #EEEEEE;
+}
+
+main {
+    flex: 1;
+}
+
+
+
+body {
+    background-image: url('../../static/images/travel-blog-cover.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 50vh;
+    margin: 0;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+
+
+#section-footer {
+    width: 100%;
+    background-color: #C08552;
+}
+
+.border-bottom {
+    color: black;
+}
+#blog-logo {
+    width: 40;
+    height: 36;
+}
+
+.container {
+    padding: 30px 0;
+}
+
+.form-group {
+    padding: 10px 0;
+    font-size: 1.2rem;
+}
+
+[
+
+
+
+
