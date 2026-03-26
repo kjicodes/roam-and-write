@@ -1,25 +1,15 @@
-#test-h1 {
+#all-posts-title {
     font-weight: bold;
-    font-size: 3rem;
+    font-size: 4.5rem;
     color: black;
 }
+
 
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    background-image: url('../images/travel-blog-cover.png');
     margin: 0;
-    background-color: #EEEEEE;
-}
-
-main {
-    flex: 1;
-}
-
-
-
-body {
-    background-image: url('../../static/images/travel-blog-cover.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -30,7 +20,19 @@ body {
     -ms-interpolation-mode: nearest-neighbor;
 }
 
+#all-posts-sub {
+    font-size:30px;
+}
 
+
+main {
+    flex: 1;
+}
+
+p {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    font-size: 20px;
+}
 
 #section-footer {
     width: 100%;
@@ -54,7 +56,35 @@ body {
     font-size: 1.2rem;
 }
 
-[
+.card {
+    width: 27rem;
+}
+
+.card img {
+    height: 300px;
+}
+
+.add-post-form {
+    background-color: #F3E3D0;
+}
+
+
+#section-post-img {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 50vh;
+    margin: 0;
+}
+
+
+#section-post-body {
+    background-color: white;
+}
+
+
+
 
 
 
