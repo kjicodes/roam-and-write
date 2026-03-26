@@ -81,5 +81,14 @@ def create_post():
     return render_template('add-post.html', form=form)
 
 
+@app.route('/delete/<int:post_id>')
+def delete_post(post_id):
+    post = db.get_or_404(BlogPost, post_id)
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(url_for('get_all_posts'))
+
+
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
