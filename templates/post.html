@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+
+<div class="d-flex text-center align-items-center " id="section-post-img"
+     style="background-image: url({{ post.img_url }});">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="fw-bold text-uppercase text-light pb-2">{{ post.title }}</h1>
+                <p class="fw-bold text-light">{{ post.location }}</p>
+                <p class="fst-italic fw-bold text-light">Posted by Kate on {{ post.date }}.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="section-post-body">
+    <div class="container">
+        <div class="row d-flex justify-content-center pt-5">
+            <div class="col-6">
+                <h4 class="pb-3">{{ post.subtitle }}</h4>
+                <p>{{ post.body }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center pb-5 fw-bold">
+            <div class="col-6">
+                {% if post.num_times_visited < 2 %}
+                <p>Visited: {{ post.num_times_visited }} time</p>
+                {% else %}
+                <p>Visited: {{ post.num_times_visited }} times</p>
+                {% endif %}
+                <p>Rating: {{ post.rating }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% include 'footer.html' %}
