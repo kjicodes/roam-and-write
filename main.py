@@ -1,7 +1,7 @@
 from typing import List
 from datetime import date
 from flask import Flask, render_template, redirect, url_for, request
-# from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, String, Text, ForeignKey, Boolean, desc
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -9,7 +9,7 @@ from forms import CreatePostForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-# Bootstrap5(app)
+Bootstrap5(app)
 
 #Initalize DB
 class Base(DeclarativeBase):
@@ -48,13 +48,13 @@ def get_all_posts():
 @app.route('/my-post/<int:post_id>')
 def get_post(post_id):
     post = db.get_or_404(BlogPost, post_id)
+    print(f"Post id (post page AFTER submitting edit): {post.id}")
 
     return render_template('post.html', post=post)
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/add-post', methods=['GET', 'POST'])
 def create_post():
     form = CreatePostForm()
-
     if form.validate_on_submit():
 
         new_post = BlogPost(
@@ -73,13 +73,43 @@ def create_post():
         db.session.commit()
 
         post_id = db.session.execute(db.select(BlogPost).where(BlogPost.title == form.title.data)).scalar().id
-        print(post_id)
+
 
 
         return redirect(url_for('get_post', post_id=post_id))
 
     return render_template('add-post.html', form=form)
 
+@app.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])
+def update_post(post_id):
+    post = db.get_or_404(BlogPost, post_id)
+    edit_form = CreatePostForm(
+        title = post.title,
+        subtitle = post.subtitle,
+        location = post.location,
+        num_times_visited = post.num_times_visited,
+        visit_again = post.visit_again,
+        body = post.body,
+        rating = post.rating,
+        img_url = post.img_url
+    )
+
+    if edit_form.validate_on_submit():
+
+        post.title = edit_form.title.data
+        post.subtitle = edit_form.subtitle.data
+        post.location = edit_form.location.data
+        post.num_times_visited = edit_form.num_times_visited.data
+        post.visit_again = edit_form.visit_again.data
+        post.body = edit_form.body.data
+        post.rating = edit_form.rating.data
+        post.img_url = edit_form.img_url.data
+
+        db.session.commit()
+
+        return redirect(url_for('get_post', post_id=post.id))
+
+    return render_template('add-post.html', form=edit_form, is_edit=True)
 
 @app.route('/delete/<int:post_id>')
 def delete_post(post_id):
