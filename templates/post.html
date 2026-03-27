@@ -36,7 +36,7 @@
         </div>
         <div class="row d-flex justify-content-end pb-5">
             <div class="col-6">
-                <a href="#" class="text-decoration-none text-dark pe-3" id="edit-post-icon ">
+                <a href="{{ url_for('update_post', post_id=post.id) }}" class="text-decoration-none text-dark pe-3" id="edit-post-icon ">
                     Edit Post
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-pencil-square" viewBox="0 0 16 16">
