@@ -12,4 +12,4 @@ class CreatePostForm(FlaskForm):
     visit_again = BooleanField('Would you visit again?')
     rating = SelectField('How many stars?', choices=["⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐⭐"], validators=[DataRequired()])
     img_url = StringField('Image URL', validators=[Optional(), URL()])
-    submit = SubmitField('Add Post')
+    submit = SubmitField('Submit')
