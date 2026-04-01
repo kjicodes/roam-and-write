@@ -5,17 +5,17 @@ from wtforms.validators import DataRequired, Length, Email, NumberRange, URL, Op
 
 
 class RegisterForm(FlaskForm):
-    first_name = StringField('First Name*', validators=[DataRequired()])
-    last_name = StringField('Last Name*', validators=[DataRequired()])
-    email = EmailField('Email*', validators=[Email(), DataRequired()])
-    password = PasswordField('Password*', validators=[DataRequired()])
-    submit = SubmitField('Sign Up')
+    first_name = StringField('First Name*', validators=[DataRequired()], render_kw={"placeholder": "First name", "class": "form-control-lg"})
+    last_name = StringField('Last Name*', validators=[DataRequired()], render_kw={"placeholder": "Last name", "class": "form-control-lg"})
+    email = EmailField('Email*', validators=[Email(), DataRequired()], render_kw={"placeholder": "Email", "class": "form-control-lg"})
+    password = PasswordField('Password*', validators=[DataRequired()], render_kw={"placeholder": "Password", "class": "form-control-lg mb-4"})
+    submit = SubmitField('Sign Up', render_kw={"class": "mb-3"})
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email*', validators=[DataRequired()])
-    password = StringField('Password*', validators=[DataRequired()])
-    submit = SubmitField('Login')
+    email = EmailField('Email*', validators=[Email(), DataRequired()], render_kw={"placeholder": "Email", "class": "form-control-lg"})
+    password = PasswordField('Password*', validators=[DataRequired()], render_kw={"placeholder": "Password", "class": "form-control-lg mb-4"})
+    submit = SubmitField('Login', render_kw={"class": "mb-3"})
 
 
 class CreatePostForm(FlaskForm):
