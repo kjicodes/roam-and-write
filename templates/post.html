@@ -1,16 +1,22 @@
 {% include 'header.html' %}
 
-    <div class="d-flex text-center align-items-center " id="section-post-img"
-         style="background-image: url({{ post.img_url }});">
-        <div class="container">
-            <div class="row">
-                {% if post.img_url %}
-                <div class="col text-light">
+<div class="d-flex text-center align-items-center " id="section-post-img"
+     style="background-image: url({{ post.img_url }});">
+    <div class="container">
+        <div class="row">
+            {% if post.img_url %}
+            <div class="col" id="post-title-section">
                 {% else %}
                 <div class="col">
-                {% endif %}
-                    <h1 class="fw-bold text-uppercase pb-2">{{ post.title }}</h1>
-                    <p class="fw-bold">{{ post.location }}</p>
+                    {% endif %}
+                    <h1 class="display-2 fw-bold text-uppercase pb-2">{{ post.title }}</h1>
+                    <p class="display-4 fw-bold">
+                        {{ post.location }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" fill="currentColor"
+                             class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                        </svg>
+                    </p>
                     <p class="fst-italic fw-bold">Posted by
                         {{ post.user.first_name }} {{ post.user.last_name[0].capitalize() }}.,
                         on {{ post.date }}.
@@ -26,7 +32,7 @@
         <div class="container">
             <div class="row d-flex justify-content-center pt-5">
                 <div class="col-6">
-                    <h4 class="pb-3">{{ post.subtitle }}</h4>
+                    <h4 class="fw-bold pb-3">{{ post.subtitle }}</h4>
                     <p>{{ post.body }}</p>
                 </div>
             </div>
@@ -43,10 +49,11 @@
                 </div>
             </div>
             {% if current_user.is_authenticated %}
-                {% if current_user.email == post.user.email %}
+            {% if current_user.email == post.user.email %}
             <div class="row d-flex justify-content-end pb-5">
                 <div class="col-6">
-                    <a href="{{ url_for('update_post', post_id=post.id) }}" class="text-decoration-none text-dark pe-3" id="edit-post-icon ">
+                    <a href="{{ url_for('update_post', post_id=post.id) }}" class="text-decoration-none text-dark pe-3"
+                       id="edit-post-icon ">
                         Edit Post
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -64,7 +71,7 @@
                     </a>
                 </div>
             </div>
-                {% endif %}
+            {% endif %}
             {% endif %}
         </div>
 
@@ -72,4 +79,4 @@
     </div>
 
 
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
