@@ -41,5 +41,5 @@ class CreatePostForm(FlaskForm):
     body = TextAreaField('Body*', validators=[DataRequired(), Length(max=10000, message="Body must be 10,000 characters or fewer.")], render_kw={"placeholder": "Tell us about it", "class": "form-control"})
     visit_again = BooleanField('Would you visit again?')
     rating = SelectField('How many stars?', choices=["⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐⭐"], validators=[DataRequired()], render_kw={"class": "form-control"})
-    img_url = StringField('Image URL', validators=[Optional(), URL()], render_kw={"placeholder": "Image Link", "class": "form-control mb-4"})
+    img_url = StringField('Image URL', validators=[Optional(), URL(), Length(max=2000, message="Image URL must be 2000 characters or fewer.")], render_kw={"placeholder": "Image Link", "class": "form-control mb-4"})
     submit = SubmitField('Submit', render_kw={"class": "mb-3"})
