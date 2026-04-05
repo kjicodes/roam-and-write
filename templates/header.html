@@ -11,49 +11,39 @@
     {% endblock %}
 </head>
 <body>
-<nav>
-    <div class="container ">
-        <div class="d-flex  justify-content-center">
+    <nav class="navbar px-3 px-md-5 py-3">
             <a href="{{ url_for('get_all_posts') }}"
-               class="d-flex align-items-center  me-md-auto link-body-emphasis text-decoration-none"
+               class="d-flex align-items-center fs-3 me-auto text-decoration-none" id="logo-name"
                ondragstart="return false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor"
-                     class="bi bi-map-fill pb-2" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.5.5 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.5.5 0 0 0-.196 0zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1z"/>
-                </svg>
-                <div class="px-2"></div>
-                <span id="logo-name">Roam&Write</span>
+                Roam<span class="text-dark">&</span>Write
             </a>
-            <ul class="nav nav-pills fs-4" ondragstart="return false">
-                <li class="nav-item">
-                    <a href="{{ url_for('get_all_posts') }}" class="nav-link text-dark" aria-current="page">Home</a>
+            <ul class="nav nav-pills fs-5" ondragstart="return false">
+                <li class="nav-item d-none d-md-flex">
+                    <a href="{{ url_for('get_all_posts') }}" class="nav-link all-nav-links" aria-current="page">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-dark">About the Owner</a>
+                <li class="nav-item d-none d-md-flex">
+                    <a href="{{ url_for('about') }}" class="nav-link all-nav-links">About</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-dark">Reach Out</a>
+                <li class="nav-item d-none d-md-flex">
+                    <a href="{{ url_for('contact') }}" class="nav-link all-nav-links">Reach Out</a>
                 </li>
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{{ url_for('create_post') }}" class="nav-link text-dark">Add Post</a>
+                    <a href="{{ url_for('create_post') }}" class="nav-link all-nav-links">Add Story</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('logout') }}" class="nav-link active text-dark bg-light">Logout</a>
+                    <a href="{{ url_for('logout') }}" class="nav-link bg-light text-dark">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a href="{{ url_for('register') }}" class="nav-link text-dark">Register</a>
+                    <a href="{{ url_for('register') }}" class="nav-link all-nav-links">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('login') }}" class="nav-link active text-dark bg-light">Login</a>
+                    <a href="{{ url_for('login') }}" class="nav-link bg-light text-dark">Login</a>
                 </li>
                 {% endif %}
             </ul>
-        </div>
-    </div>
-</nav>
+    </nav>
 <main>
 
 
