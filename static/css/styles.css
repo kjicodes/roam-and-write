@@ -10,31 +10,61 @@ body {
       font-style: normal;
 }
 
-
 main {
     flex: 1;
 }
 
 p {
-    font-size: 1.3rem;
+    font-size: 1rem;
     }
+
+.form-label {
+    font-size: 1rem;
+}
 
 nav {
     position: sticky;
     top: 0;
     background-color: #EA7B7B;
+    z-index: 1020;
+}
+
+.all-nav-links {
+    color: black;
+    opacity: 0.75
+}
+
+.all-nav-links-light {
+    color: white;
+    opacity: 0.75
+}
+
+.all-nav-links:hover {
+    color: black;
+    opacity: 1;
+}
+
+.all-nav-links-light:hover {
+    color: white;
+    opacity: 1;
+}
+
+#about-us-title,
+#logo-name,
+#contact-page-developer,
+.bi-pencil-fill,
+.register-page-title {
+    color: #A82323;
 }
 
 #all-posts-sub {
     font-size:30px;
 }
 
-
-
-
 #all-posts-title,
 #all-posts-story,
-.bi-lightbulb-fill {
+#all-posts-written-by,
+#contact-page-title {
     color: #FFEAD3;
 }
 
@@ -43,67 +73,67 @@ nav {
     color: #FFDAB3;
 }
 
-#all-posts-written-by {
-    color: #FFEAD3;
-}
-
 .bi-geo-alt-fill {
     color: #980404;
 }
 
-#section-footer {
-    background-color: #EA7B7B;
-}
-
-#blog-logo {
-    width: 40;
-    height: 36;
+#bi-linkedin {
+    color: black;
 }
 
 .container {
+
     padding: 30px 0;
-}
-
-.form-group {
-    padding: 10px 0;
-    font-size: 1.2rem;
-}
-
-
-#section-post-img {
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    height: 50vh;
-    margin: 0;
-
 }
 
 #logo-name {
     font-size: 30px
 }
 
+#section-home-all-posts,
 #section-post-body {
     background-color: white;
 }
 
-.post-num-visited {
-    font-weight: normal;
-}
-
 .card {
-    background-color: #EA7B7B;
     border: none;
 }
 
+#contact-page-form {
+    background-color: #FFEAD3;
+}
 #login-page-form,
 #register-page-form {
-    background-color: #FFEAD3;
+    color: #FFEAD3;
+    background-color: #A82323;
+}
+
+#add-page-form,
+#post-page {
+    background-color: white;
+}
+
+#section-footer {
+    background-color: black;
 }
 
 
-/*Flashes category colors */
+/* Post card hover */
+.post-card-link .card {
+    transition: transform 0.15s ease;
+}
+
+.post-card-link:hover .card {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.post-card-link:hover .card-title {
+    color: #A82323;
+}
+
+
+/*Flash msg category colors */
 .success {
     color: green;
 }
