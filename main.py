@@ -54,7 +54,7 @@ class BlogPost(db.Model):
     date: Mapped[str] = mapped_column(String(250), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
     rating: Mapped[str] = mapped_column(String(250), nullable=False)
-    img_url: Mapped[str] = mapped_column(String(250), nullable=False)
+    img_url: Mapped[str] = mapped_column(Text, nullable=False)
 
     user_id = mapped_column(ForeignKey("users.id"))
     user = relationship("User", back_populates="posts")
@@ -279,12 +279,7 @@ def contact():
             body=form.message.data
         )
         db.session.add(new_message)
-        try:
-            db.session.commit()
-        except IntegrityError:
-            db.session.rollback()
-            flash('A message from this email has already been received.', 'error')
-            return redirect(url_for('contact'))
+        db.session.commit()
 
         flash('Your message has been successfully received.', 'success')
 
