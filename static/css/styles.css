@@ -100,12 +100,17 @@ nav {
 }
 
 #contact-page-form {
-    background-color: #FFEAD3;
+    background-color: white;
 }
 #login-page-form,
 #register-page-form {
-    color: #FFEAD3;
-    background-color: #A82323;
+    color: black;
+    background-color: #FFEAD3;
+}
+
+#register-page-form h3,
+#register-page-form p.fs-5 {
+    color: #A82323;
 }
 
 #add-page-form,
@@ -135,7 +140,7 @@ nav {
 
 /*Flash msg category colors */
 .success {
-    color: green;
+    color: #198754;
 }
 
 .error {
