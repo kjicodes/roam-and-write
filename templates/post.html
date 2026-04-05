@@ -6,8 +6,8 @@
     <div class="container py-3 py-lg-5">
         <div class="row align-items-center justify-content-center mt-5">
             <div class="col-10 col-md-8 col-lg-6 pt-3 pt-lg-5">
-                <h1 class="display-4 fw-bold text-uppercase pb-2">{{ post.title }}</h1>
-                <p class="fs-1">
+                <h1 class="fw-bold text-uppercase pb-2">{{ post.title }}</h1>
+                <p class="fs-3">
                     {{ post.location }}
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor"
                          class="bi bi-geo-alt-fill pb-2" viewBox="0 0 16 16">
@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-10">
-                <img src="{{ post.img_url }}" alt="post image" class="img-fluid"/>
+                <img src="{{ post.img_url }}" alt="post image" class="img-fluid d-block mx-auto"/>
             </div>
         </div>
     </div>
@@ -37,8 +37,8 @@
     <div class="container">
         <div class="row align-items-center justify-content-center pt-3 pt-lg-5">
             <div class="col-10 col-md-8 col-lg-6">
-                <h4 class="fw-bold pb-3">{{ post.subtitle }}</h4>
-                <p>{{ post.body }}</p>
+                <h3 class="fw-bold pb-3">{{ post.subtitle }}</h3>
+                <p class="">{{ post.body }}</p>
             </div>
         </div>
     </div>

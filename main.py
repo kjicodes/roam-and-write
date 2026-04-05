@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap5
@@ -8,10 +9,12 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm, LoginForm, RegisterForm, ContactForm, CommentForm
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 Bootstrap5(app)
 
 #Initalize DB
@@ -154,7 +157,7 @@ def get_all_posts():
 
     return render_template("index.html", posts=all_posts)
 
-@app.route("/my-post/<post_id>", methods=["GET", "POST"])
+@app.route("/post/<post_id>", methods=["GET", "POST"])
 def get_post(post_id):
     post = db.get_or_404(BlogPost, post_id)
     comments = db.session.execute(db.select(Comment).where(Comment.post == post).order_by(desc(Comment.id))).scalars().all()
