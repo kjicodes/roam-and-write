@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length, Email, NumberRange, URL, Op
 
 
 class CommentForm(FlaskForm):
-    comment = TextAreaField("Write a comment below", validators=[DataRequired()],
+    comment = TextAreaField("Write a comment below", validators=[DataRequired(), Length(max=2000, message="Comment must be 2000 characters or fewer.")],
                              render_kw={"placeholder": "Enter your thoughts", "class": "form-control"})
     submit = SubmitField('Post', render_kw={"class": "mb-3"})
 
@@ -38,7 +38,7 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField('Subtitle*', validators=[DataRequired()], render_kw={"placeholder": "Subtitle", "class": "form-control"})
     location = StringField('Destination ✈️ (e.g. City, Prov/State, Country)*', validators=[DataRequired()], render_kw={"placeholder": "Where", "class": "form-control"})
     num_times_visited = IntegerField('How many times have you visited?*', validators=[NumberRange(min=1, message="Value must be above 0."), DataRequired()], render_kw={"placeholder": "How often", "class": "form-control"})
-    body = TextAreaField('Body*', validators=[DataRequired()], render_kw={"placeholder": "Tell us about it", "class": "form-control"})
+    body = TextAreaField('Body*', validators=[DataRequired(), Length(max=10000, message="Body must be 10,000 characters or fewer.")], render_kw={"placeholder": "Tell us about it", "class": "form-control"})
     visit_again = BooleanField('Would you visit again?')
     rating = SelectField('How many stars?', choices=["⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐⭐"], validators=[DataRequired()], render_kw={"class": "form-control"})
     img_url = StringField('Image URL', validators=[Optional(), URL()], render_kw={"placeholder": "Image Link", "class": "form-control mb-4"})
