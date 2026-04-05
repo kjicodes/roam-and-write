@@ -43,7 +43,7 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
 | Page | Route | Description |
 |------|-------|-------------|
 | Home | `/` | Browse all travel posts |
-| Post | `/my-post/<id>` | Read a post and leave a comment |
+| Post | `/post/<id>` | Read a post and leave a comment |
 | Add Post | `/add-post` | Create a new travel post (login required) |
 | Edit Post | `/edit-post/<id>` | Edit an existing post (login required) |
 | Register | `/register` | Create a new account |
