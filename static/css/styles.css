@@ -49,24 +49,12 @@ nav {
 #about-us-title,
 #logo-name,
 #contact-page-developer,
-.bi-pencil-fill,
-.register-page-title {
+.bi-pencil-fill {
     color: #A82323;
 }
 
-#all-posts-sub {
-    font-size:30px;
-}
-
-#all-posts-title,
-#all-posts-story,
-#all-posts-written-by {
+#all-posts-story {
     color: #FFEAD3;
-}
-
-#contact-page-title {
-    color: black;
-    opacity: 0.7;
 }
 
 body:has(#contact-page) nav {
@@ -192,17 +180,8 @@ body:has(#contact-page) nav {
     opacity: 0.75;
 }
 
-#all-posts-name,
-#post-title-section {
-    color: #FFDAB3;
-}
-
 .bi-geo-alt-fill {
     color: #980404;
-}
-
-#bi-linkedin {
-    color: black;
 }
 
 .container {
@@ -218,10 +197,6 @@ body:has(#contact-page) nav {
     background-color: #FFEAD3;
 }
 
-#section-post-body {
-    background-color: white;
-}
-
 .card {
     border: none;
 }
@@ -231,7 +206,6 @@ body:has(#contact-page) nav {
 }
 
 
-#add-page-form,
 #post-page {
     background-color: white;
 }
@@ -350,6 +324,72 @@ body:has(#add-post-page) nav {
 }
 
 #add-post-page .btn-primary:hover {
+    background-color: black;
+    opacity: 0.75;
+}
+
+/* Shared site button style (for <a> links styled as buttons) */
+.btn-site {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: "Cormorant", serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 2.5rem;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-site:hover {
+    background-color: black;
+    color: white;
+    opacity: 0.75;
+}
+
+/* Comment delete icon */
+.comment-delete-link {
+    opacity: 0.45;
+    transition: opacity 0.2s ease;
+}
+
+.comment-delete-link:hover {
+    opacity: 1;
+}
+
+/* Post page edit/delete action labels */
+.post-action-label {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+#post-page .d-flex.align-items-center {
+    transition: opacity 0.2s ease;
+}
+
+#post-page .d-flex.align-items-center:hover {
+    opacity: 0.6;
+}
+
+/* Post page comment form button */
+#post-page .btn-primary {
+    background-color: black;
+    border: none;
+    border-radius: 8px;
+    font-family: "Cormorant", serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 2.5rem;
+    margin-top: 0.75rem;
+    transition: opacity 0.2s ease;
+}
+
+#post-page .btn-primary:hover {
     background-color: black;
     opacity: 0.75;
 }
