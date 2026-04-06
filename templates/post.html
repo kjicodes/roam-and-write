@@ -3,19 +3,19 @@
 
 <div id="post-page">
 
-    <div class="container py-3 py-lg-5">
+    <div class="container pt-3 pt-lg-5 pb-0">
         <div class="row align-items-center justify-content-center mt-5">
             <div class="col-10 col-md-8 col-lg-7 pt-3 pt-lg-5">
                 <h1 class="fw-bold text-uppercase pb-2">{{ post.title }}</h1>
                 <p class="fs-3">
                     {{ post.location }}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor"
-                         class="bi bi-geo-alt-fill pb-2" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                         class="bi bi-geo-alt-fill icon-inline" viewBox="0 0 16 16">
                         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                     </svg>
                 </p>
                 <p class="fs-6 fst-italic opacity-75 py-0">Posted by
-                    {{ post.user.first_name }} {{ post.user.last_name[0].capitalize() }}.
+                    {{ post.user.first_name }} {{ post.user.last_name }}.
                     on {{ post.date }}.
                 </p>
 
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <p>{{ comment.comment }}</p>
+                <p class="fs-6">{{ comment.comment }}</p>
                 {% if current_user.is_authenticated %}
                 {% if current_user.email == comment.user.email %}
                 <a href="{{ url_for('delete_comment', comment_id=comment.id) }}"

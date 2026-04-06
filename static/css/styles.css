@@ -69,9 +69,127 @@ nav {
     opacity: 0.7;
 }
 
-body:has(#contact-page),
 body:has(#contact-page) nav {
     background-color: #FFEAD3;
+}
+
+/* Contact page split layout */
+.contact-split {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .contact-split {
+        flex-direction: row;
+        min-height: calc(100vh - 56px);
+    }
+}
+
+.contact-left {
+    background-color: #FFEAD3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2.5rem;
+    flex: 1;
+}
+
+.contact-right {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2.5rem;
+    flex: 1;
+}
+
+.contact-left-inner,
+.contact-right-inner {
+    width: 100%;
+    max-width: 400px;
+}
+
+.contact-heading {
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.1;
+    color: black;
+    margin-bottom: 0.75rem;
+}
+
+.contact-sub {
+    font-size: 1.15rem;
+    color: black;
+    opacity: 0.65;
+    margin-bottom: 1.5rem;
+}
+
+.contact-divider {
+    border: none;
+    border-top: 1.5px solid rgba(0, 0, 0, 0.15);
+    margin-bottom: 1.5rem;
+}
+
+.contact-developer {
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.contact-required {
+    font-size: 0.9rem;
+    opacity: 0.55;
+    margin-bottom: 1.25rem;
+}
+
+#contact-page .form-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    color: black;
+    margin-bottom: 0.3rem;
+}
+
+#contact-page .form-control {
+    background-color: transparent;
+    border: 1.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: "Cormorant", serif;
+    font-size: 1.1rem;
+    color: black;
+    box-shadow: none;
+}
+
+#contact-page .form-control:focus {
+    background-color: transparent;
+    border-color: black;
+    box-shadow: none;
+    color: black;
+}
+
+#contact-page .mb-3 {
+    margin-bottom: 1.75rem !important;
+}
+
+#contact-page .btn-primary {
+    background-color: black;
+    border: none;
+    border-radius: 8px;
+    font-family: "Cormorant", serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 2.5rem;
+    margin-top: 0.75rem;
+    transition: opacity 0.2s ease;
+}
+
+#contact-page .btn-primary:hover {
+    background-color: black;
+    opacity: 0.75;
 }
 
 #all-posts-name,
@@ -96,7 +214,10 @@ body:has(#contact-page) nav {
     font-size: 30px
 }
 
-#section-home-all-posts,
+#section-home-all-posts {
+    background-color: #FFEAD3;
+}
+
 #section-post-body {
     background-color: white;
 }
@@ -105,19 +226,10 @@ body:has(#contact-page) nav {
     border: none;
 }
 
-#contact-page-form {
-    background-color: white;
-}
-#login-page-form,
-#register-page-form {
-    color: black;
-    background-color: #FFEAD3;
+#section-home-all-posts .card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
 }
 
-#register-page-form h3,
-#register-page-form p.fs-5 {
-    color: #A82323;
-}
 
 #add-page-form,
 #post-page {
@@ -146,6 +258,12 @@ body:has(#contact-page) nav {
 
 .brand-text { color: #A82323; }
 .brand-amp { color: black; }
+
+.icon-inline {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+}
 
 .contact-page-tagline {
     font-size: 1rem;
@@ -198,7 +316,7 @@ body:has(#add-post-page) nav {
 #add-post-page .form-select {
     background-color: transparent;
     border: 1.5px solid rgba(0, 0, 0, 0.3);
-    border-radius: 0;
+    border-radius: 8px;
     padding: 0.5rem 0.75rem;
     font-family: "Cormorant", serif;
     font-size: 1.1rem;
@@ -221,7 +339,7 @@ body:has(#add-post-page) nav {
 #add-post-page .btn-primary {
     background-color: black;
     border: none;
-    border-radius: 0;
+    border-radius: 8px;
     font-family: "Cormorant", serif;
     font-size: 1rem;
     letter-spacing: 0.1em;
@@ -243,6 +361,150 @@ body:has(#add-post-page) nav {
 
 .error {
     color: red;
+}
+
+/* Login / Register standalone pages */
+body:has(#login-page),
+body:has(#register-page) {
+    background-color: #FFEAD3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrapper,
+.register-wrapper {
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem 1.5rem;
+}
+
+.login-wrapper a.back-link,
+.register-wrapper a.back-link {
+    font-size: 0.95rem;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+}
+
+.login-wrapper a.back-link:hover,
+.register-wrapper a.back-link:hover {
+    opacity: 1;
+}
+
+.login-wrapper h1,
+.register-wrapper h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+    color: black;
+}
+
+.login-wrapper .subtitle,
+.register-wrapper .subtitle {
+    font-size: 1.15rem;
+    opacity: 0.65;
+    margin-bottom: 2.25rem;
+    color: black;
+}
+
+#login-page .form-label,
+#register-page .form-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    color: black;
+    margin-bottom: 0.3rem;
+}
+
+#login-page .form-control,
+#register-page .form-control {
+    background-color: transparent;
+    border: 1.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: "Cormorant", serif;
+    font-size: 1.1rem;
+    color: black;
+    box-shadow: none;
+}
+
+#login-page .form-control:focus,
+#register-page .form-control:focus {
+    background-color: transparent;
+    border-color: black;
+    box-shadow: none;
+    color: black;
+}
+
+#login-page .mb-3,
+#register-page .mb-3 {
+    margin-bottom: 1.75rem !important;
+}
+
+#login-page .btn-primary,
+#register-page .btn-primary {
+    background-color: black;
+    border: none;
+    border-radius: 8px;
+    font-family: "Cormorant", serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 2.5rem;
+    margin-top: 0.75rem;
+    transition: opacity 0.2s ease;
+}
+
+#login-page .btn-primary:hover,
+#register-page .btn-primary:hover {
+    background-color: black;
+    opacity: 0.75;
+}
+
+.register-link {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: black;
+    opacity: 0.6;
+}
+
+.register-link a {
+    color: black;
+    opacity: 1;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    opacity: 0.7;
+}
+
+.login-link {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: black;
+    opacity: 0.6;
+}
+
+.login-link a {
+    color: black;
+    opacity: 1;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    opacity: 0.7;
+}
+
+.flash-msg {
+    font-size: 0.95rem;
+    margin-top: 1rem;
 }
 
 
