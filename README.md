@@ -27,16 +27,8 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-3. Run the app:
-   ```
-   python main.py
-   ```
-4. Open your browser and navigate to `http://localhost:5001`
+ Access the web application here:
+ [Click Here](https://roam-and-write-aafc68872502.herokuapp.com/)    
 
 ## Pages
 
