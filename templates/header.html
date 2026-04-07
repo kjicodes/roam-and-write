@@ -32,9 +32,11 @@
                     <a href="{{ url_for('contact') }}" class="nav-link all-nav-links">Reach Out</a>
                 </li>
                 {% if current_user.is_authenticated %}
+                {% if request.endpoint != 'create_post' %}
                 <li class="nav-item">
                     <a href="{{ url_for('create_post') }}" class="nav-link all-nav-links">Add Story</a>
                 </li>
+                {% endif %}
                 <li class="nav-item d-flex align-items-center">
                     <div class="vr nav-greeting-divider"></div>
                 </li>
