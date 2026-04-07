@@ -19,21 +19,27 @@
                class="d-flex align-items-center me-auto text-decoration-none gap-2" id="logo-name"
                ondragstart="return false">
                 <img src="{{ url_for('static', filename='images/sunset-logo.png') }}" alt="Sunset logo" width="55" height="55" class="d-none d-lg-inline">
-                <p class="fs-3 mb-0">Roam<span class="text-dark">&</span>Write</p>
+                <p class="mb-0">Roam<span class="text-dark">&</span>Write</p>
             </a>
-            <ul class="nav nav-pills fs-5" ondragstart="return false">
-                <li class="nav-item d-none d-md-flex">
+            <ul class="nav nav-pills fs-6 fs-lg-5" ondragstart="return false">
+                <li class="nav-item d-none d-lg-flex">
                     <a href="{{ url_for('get_all_posts') }}" class="nav-link all-nav-links" aria-current="page">Home</a>
                 </li>
-                <li class="nav-item d-none d-md-flex">
+                <li class="nav-item d-none d-lg-flex">
                     <a href="{{ url_for('about') }}" class="nav-link all-nav-links">About</a>
                 </li>
-                <li class="nav-item d-none d-md-flex">
+                <li class="nav-item d-none d-lg-flex">
                     <a href="{{ url_for('contact') }}" class="nav-link all-nav-links">Reach Out</a>
                 </li>
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{{ url_for('create_post') }}" class="nav-link all-nav-links">Add Story</a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <div class="vr nav-greeting-divider"></div>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <span class="nav-link nav-greeting">Hi, {{ current_user.first_name }}</span>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('logout') }}" class="nav-link bg-light text-dark">Logout</a>
