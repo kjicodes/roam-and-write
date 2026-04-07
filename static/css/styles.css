@@ -215,6 +215,30 @@ body:has(#contact-page) nav {
 }
 
 
+/* Featured post card */
+.featured-card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.featured-img-col {
+    aspect-ratio: 3/2;
+    overflow: hidden;
+}
+
+.featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.grid-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+}
+
 /* Post card hover */
 .post-card-link .card {
     transition: transform 0.15s ease;
@@ -248,6 +272,12 @@ body:has(#contact-page) nav {
 
 .post-card-max-width {
     max-width: 660px;
+}
+
+/* About page */
+body:has(#about-page) main {
+    display: flex;
+    align-items: center;
 }
 
 /* Add Post page */
