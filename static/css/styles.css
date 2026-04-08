@@ -451,7 +451,8 @@ body:has(#add-post-page) nav {
 
 /* Login / Register standalone pages */
 body:has(#login-page),
-body:has(#register-page) {
+body:has(#register-page),
+body:has(#verify-email-page) {
     background-color: #FFEAD3;
     display: flex;
     align-items: center;
@@ -591,6 +592,83 @@ body:has(#register-page) {
 .flash-msg {
     font-size: 0.95rem;
     margin-top: 1rem;
+}
+
+/* Verify email page */
+.verify-email-wrapper {
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem 1.5rem;
+}
+
+.verify-email-wrapper a.back-link {
+    font-size: 0.95rem;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+}
+
+.verify-email-wrapper a.back-link:hover {
+    opacity: 0.7;
+}
+
+.verify-email-wrapper h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+    color: black;
+}
+
+.verify-email-wrapper .subtitle {
+    font-size: 1.15rem;
+    opacity: 0.65;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.verify-email-divider {
+    border: none;
+    border-top: 1.5px solid rgba(0, 0, 0, 0.15);
+    margin-bottom: 1.5rem;
+}
+
+.verify-email-resend-text {
+    font-size: 1rem;
+    color: black;
+    opacity: 0.6;
+    margin-bottom: 1.25rem;
+}
+
+.verify-email-resend-text a {
+    color: black;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.verify-email-resend-text a:hover {
+    opacity: 0.7;
+}
+
+.verify-email-links {
+    font-size: 1rem;
+    color: black;
+    opacity: 0.6;
+}
+
+.verify-email-links a {
+    color: black;
+    font-weight: 600;
+}
+
+.verify-email-links a:hover {
+    opacity: 0.7;
+}
+
+.verify-email-links-divider {
+    margin: 0 0.5rem;
 }
 
 
