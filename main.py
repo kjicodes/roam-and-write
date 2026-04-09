@@ -17,9 +17,12 @@ from models import User, BlogPost, Comment, Contact
 
 load_dotenv()
 
+
+#Initialize Flask app
 app = Flask(__name__)
+
+#Set config vars
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-#Configure mail service
 app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER")
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
@@ -28,9 +31,10 @@ app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
 
+#Initialize Bootstrap-Flask
 Bootstrap5(app)
 
-#Configure db
+#Configure db uri
 uri = os.environ.get("DATABASE_URL", "sqlite:///travel-blog-posts.db")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
@@ -49,7 +53,8 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return db.session.get(User, user_id)
 
-#Flask Mail
+
+#Initialize Flask-Mail
 mail = Mail(app)
 
 

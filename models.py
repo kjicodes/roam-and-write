@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey, String, Integer, Text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from extensions import db
 
-
+#Create db models
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
