@@ -49,7 +49,7 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
    ```
    SECRET_KEY=your-secret-key
    MAIL_SERVER=chosen-mail-server
-   MAIL_USERNAME=your-email
+   MAIL_USERNAME=your-username-or-email
    MAIL_PASSWORD=your-app-password
    ```
 
