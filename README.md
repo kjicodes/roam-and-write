@@ -29,7 +29,36 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
 ## Getting Started
 
  Access the web application here:
- [Click Here](https://roam-and-write-aafc68872502.herokuapp.com/)    
+ [Roam&Write](https://roam-and-write-aafc68872502.herokuapp.com/)    
+
+## Running Locally
+
+1. Clone the repository and create a virtual environment
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+2. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Create a `.env` file in the project root
+
+   ```
+   SECRET_KEY=your-secret-key
+   MAIL_SERVER=smtp.gmail.com
+   MAIL_USERNAME=your-email@gmail.com
+   MAIL_PASSWORD=your-app-password
+   ```
+
+4. Run the development server
+   ```bash
+   python main.py
+   ```
+
+5. Visit `http://localhost:5001`
 
 ## Pages
 
