@@ -1,8 +1,9 @@
 import os
 from datetime import date
+from functools import wraps
 from flask_mail import Mail, Message
 from smtplib import SMTPException
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_bootstrap import Bootstrap5
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from sqlalchemy import desc
@@ -48,6 +49,7 @@ with app.app_context():
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+login_manager.login_message_category = "error"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -56,6 +58,37 @@ def load_user(user_id):
 
 #Initialize Flask-Mail
 mail = Mail(app)
+
+
+#Create admin-or-owner decorator
+#Admin can delete any post/comment
+def admin_or_owner(model, resource_id):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.is_authenticated:
+                return redirect(url_for("login"))
+
+            resource = db.session.get(model, kwargs[resource_id])
+            if not resource:
+                model_names = {
+                    BlogPost: "post",
+                    Comment: "comment"
+                }
+                resource_name = model_names.get(model, "resource")
+                flash(f"This {resource_name} no longer exists.", "error")
+                if model == Comment:
+                    return redirect(url_for("get_post", post_id=kwargs["post_id"]))
+                else:
+                    return redirect(url_for("get_all_posts"))
+
+            if not current_user.is_admin and resource.user_id != current_user.id:
+                flash("You do not have permission to do that.", "error")
+                return redirect(url_for("get_all_posts"))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
 
 
 def generate_verification_token(user_id):
@@ -79,7 +112,8 @@ def register():
             last_name=form.last_name.data,
             email=form.email.data,
             password=hashed_password,
-            is_verified=False
+            is_verified=False,
+            is_admin=False
         )
         db.session.add(new_user)
 
@@ -203,7 +237,11 @@ def get_all_posts():
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def get_post(post_id):
-    post = db.get_or_404(BlogPost, post_id)
+    post = db.session.get(BlogPost, post_id)
+    if not post:
+        flash("This post no longer exists.", "error")
+        return redirect(url_for("get_all_posts"))
+
     comments = db.session.execute(db.select(Comment).where(Comment.post == post).order_by(desc(Comment.id))).scalars().all()
     form = CommentForm()
     if form.validate_on_submit():
@@ -250,7 +288,11 @@ def create_post():
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 @login_required
 def update_post(post_id):
-    post = db.get_or_404(BlogPost, post_id)
+    post = db.session.get(BlogPost, post_id)
+    if not post:
+        flash("This post no longer exists.", "error")
+        return redirect(url_for("get_all_posts"))
+    
     edit_form = CreatePostForm(
         title = post.title,
         subtitle = post.subtitle,
@@ -281,19 +323,22 @@ def update_post(post_id):
 
 @app.route("/delete-post/<int:post_id>")
 @login_required
+@admin_or_owner(BlogPost, "post_id")
 def delete_post(post_id):
-    post = db.get_or_404(BlogPost, post_id)
+    post = db.session.get(BlogPost, post_id)
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for("get_all_posts"))
 
-@app.route("/delete-comment/<int:comment_id>")
+
+@app.route("/delete-comment/<int:post_id>/<int:comment_id>")
 @login_required
-def delete_comment(comment_id):
-    comment = db.get_or_404(Comment, comment_id)
+@admin_or_owner(Comment, "comment_id")
+def delete_comment(post_id, comment_id):
+    comment = db.session.get(Comment, comment_id)
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for("get_post", post_id=comment.post_id))
+    return redirect(url_for("get_post", post_id=post_id))
 
 
 @app.route("/about")
