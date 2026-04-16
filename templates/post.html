@@ -49,9 +49,9 @@
             </div>
         </div>
         {% if current_user.is_authenticated %}
-        {% if current_user.email == post.user.email %}
         <div class="row pb-5">
             <div class="col-10 col-lg-9 d-flex justify-content-end gap-3">
+                {% if current_user.id == post.user_id %}
                 <a href="{{ url_for('update_post', post_id=post.id) }}" class="text-decoration-none text-dark d-flex align-items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -61,6 +61,8 @@
                     </svg>
                     <span class="post-action-label">Edit</span>
                 </a>
+                {% endif %}
+                {% if current_user.id == post.user_id or current_user.is_admin %}
                 <a href="{{ url_for('delete_post', post_id=post.id) }}" class="text-decoration-none text-danger d-flex align-items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          class="bi bi-trash3" viewBox="0 0 16 16">
@@ -68,9 +70,9 @@
                     </svg>
                     <span class="post-action-label">Delete</span>
                 </a>
+                {% endif %}
             </div>
         </div>
-        {% endif %}
         {% endif %}
     </div>
 
@@ -110,9 +112,9 @@
                         </div>
                     </div>
                     {% if current_user.is_authenticated %}
-                    {% if current_user.email == comment.user.email %}
+                    {% if current_user.id == comment.user_id or current_user.is_admin %}
                     <div class="col-auto">
-                        <a href="{{ url_for('delete_comment', comment_id=comment.id) }}"
+                        <a href="{{ url_for('delete_comment', post_id=post.id, comment_id=comment.id) }}"
                            class="text-decoration-none text-secondary comment-delete-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash3" viewBox="0 0 16 16">
