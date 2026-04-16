@@ -7,6 +7,7 @@ from extensions import db
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
+    is_admin: Mapped[bool] = mapped_column(Boolean, nullable=False)
     first_name: Mapped[str] = mapped_column(String(250), nullable=False)
     last_name: Mapped[str] = mapped_column(String(250), nullable=False)
     email: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
