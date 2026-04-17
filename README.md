@@ -1,4 +1,4 @@
-# *Roam&Write*
+# Roam&Write
 
 <img src="static/images/site-screenshot.png" alt="Roam&Write" width="600"/>
 
@@ -7,6 +7,13 @@ Plan less, share more — a travel blog web application where users can document
 ## About
 
 Roam&Write was built with the idea that every journey has a story worth sharing. Users can create an account, publish travel posts, browse stories from others, and engage through comments.
+
+## Tech Stack
+
+- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, SQLAlchemy, itsdangerous
+- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask
+- **Database:** SQLite (development) / PostgreSQL (production)
+- **Deployment:** Heroku
 
 ## Features
 
@@ -19,13 +26,6 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
 - **Contact form** — visitors can send a message directly through the site 
 - **About page** — overview of the platform and its purpose
 - **Responsive design** — layout adapts across desktop, tablet, and mobile screen sizes
-
-## Tech Stack
-
-- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, SQLAlchemy, itsdangerous
-- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask
-- **Database:** SQLite (development) / PostgreSQL (production)
-- **Deployment:** Heroku
 
 ## Getting Started
 
