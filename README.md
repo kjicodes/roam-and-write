@@ -12,21 +12,20 @@ Roam&Write was built with the idea that every journey has a story worth sharing.
 
 - **User authentication** — register, log in, and log out securely with hashed passwords
 - **Email verification** — new accounts require email verification before logging in
+- **Route protection** — custom `admin_or_owner` decorator enforces ownership and role checks; unauthenticated users are redirected to login with user-friendly flash messages
 - **Create posts** — document a trip with a title, subtitle, destination, body, star rating, visit count, and an optional image
-- **Edit & delete posts** — authors can update or remove their own posts
-- **Role-based access control** — `admin_or_owner` decorator restricts post/comment deletion to owners and admins
-- **Route protection** — unauthenticated users are redirected to login; missing or unauthorized resources return user-friendly flash messages
-- **Comments** — authenticated users can leave comments on any post; comment authors and admins can delete comments
-- **Contact form** — visitors can send a message directly through the site
+- **Edit & delete posts** — authors can update or remove their own posts; admins can delete any post
+- **Comments** — authenticated users can leave comments on any post; only the comment author or an admin can delete the comment
+- **Contact form** — visitors can send a message directly through the site 
 - **About page** — overview of the platform and its purpose
 - **Responsive design** — layout adapts across desktop, tablet, and mobile screen sizes
 
 ## Tech Stack
 
-- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, itsdangerous, SQLAlchemy
-- **Frontend:** Jinja2, Bootstrap 5, Bootstrap-Flask
-- **Database:** SQLite (local) / PostgreSQL (Heroku)
-- **Security:** Werkzeug password hashing (PBKDF2), itsdangerous token-based email verification, custom RBAC decorator (admin_or_owner)
+- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, SQLAlchemy, itsdangerous
+- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask
+- **Database:** SQLite (development) / PostgreSQL (production)
+- **Deployment:** Heroku
 
 ## Getting Started
 
