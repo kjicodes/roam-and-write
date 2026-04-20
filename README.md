@@ -4,6 +4,13 @@
 
 Plan less, share more. Roam&Write is a travel blog web application where users can document and share their travel experiences with readers and fellow adventurers. Users can create an account, publish travel posts, browse stories from others, and engage through comments.
 
+## Tech Stack
+
+- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, SQLAlchemy, itsdangerous
+- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask
+- **Database:** SQLite (development) / PostgreSQL (production)
+- **Deployment:** Heroku
+
 ## Features
 
 - **User authentication:** register, log in, and log out securely with hashed passwords
@@ -16,13 +23,6 @@ Plan less, share more. Roam&Write is a travel blog web application where users c
 - **Contact form:** visitors can send a message directly through the site
 - **About page:** overview of the platform and its purpose
 - **Responsive design:** layout adapts across desktop, tablet, and mobile screen sizes
-
-## Tech Stack
-
-- **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, itsdangerous, SQLAlchemy
-- **Frontend:** Jinja2, Bootstrap 5, Bootstrap-Flask
-- **Database:** SQLite (local) / PostgreSQL (Heroku)
-- **Security:** Werkzeug password hashing (PBKDF2), itsdangerous token-based email verification, custom RBAC decorator (admin_or_owner)
 
 ## Getting Started
 
