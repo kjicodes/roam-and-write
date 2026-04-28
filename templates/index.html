@@ -1,7 +1,7 @@
 {% include 'header.html' %}
 
-<div class="container px-4 px-lg-5">
-    <div class="row flex-md-row-reverse align-items-center justify-content-lg-around g-lg-5 pb-4 py-lg-5 px-4 px-lg-5 px-sm-3">
+<div id="section-home-intro" class="container px-4 px-lg-5">
+    <div class="row flex-md-row-reverse align-items-center justify-content-lg-around g-lg-5  py-lg-3 px-4 px-lg-5 px-sm-3">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -14,8 +14,8 @@
                  class="d-none d-lg-block mx-lg-auto img-fluid"
                  alt="Sunset logo" width="300" height="300" loading="lazy" ondragstart="return false">
         </div>
-        <div class="col-lg-9 col-md-12">
-            <h1 class="display-2 fw-bold text-body-emphasis lh-1 pt-5 mb-3">
+        <div class="col-lg-7 col-md-12">
+            <h1 class="display-2 fw-bold text-body-emphasis lh-1 mb-3">
                 Every Journey Has a
                 <span id="all-posts-story">Story.</span>
             </h1>
