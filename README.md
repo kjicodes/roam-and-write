@@ -57,7 +57,3 @@ Plan less, share more. Roam&Write is a travel blog web application where users c
    ```
 
 5. Visit `http://localhost:5001`
-
-## Author
-
-Developed by **[Kateleen Issa](https://www.linkedin.com/in/kjicodes)**
