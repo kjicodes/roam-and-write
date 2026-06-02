@@ -1,14 +1,23 @@
 # Roam&Write
 
-<img src="static/images/site-screenshot.png" alt="Roam&Write" width="600"/>
+<img src="static/images/site-screenshot.png" alt="Roam&Write Home" width="600"/>
 
-Plan less, share more. Roam&Write is a travel blog web application where users can document and share their travel experiences with readers and fellow adventurers. Users can create an account, publish travel posts, browse stories from others, and engage through comments.
+<img src="static/images/all-posts.png" alt="All Blog Posts" width="600"/>
+
+<img src="static/images/ai-insights.png" alt="AI Insights" width="600"/>
+
+
+Plan less, share more. Roam&Write is a travel blog web application where users can document and share their travel experiences with readers and fellow adventurers. 
+Powered by the Google Gemini API, each post surfaces AI-generated trip insights, similar destination suggestions, and an interactive AI chat assistant. 
+Users can create an account, publish travel posts, browse stories from others, and engage through comments.
+
 
 ## Tech Stack
 
 - **Backend:** Python, Flask, Flask-Login, Flask-Mail, Flask-WTF, SQLAlchemy, itsdangerous
-- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask
+- **Frontend:** HTML, CSS, Bootstrap, Bootstrap-Flask, JavaScript
 - **Database:** SQLite (development) / PostgreSQL (production)
+- **AI:** Google Gemini API
 - **Deployment:** Heroku
 
 ## Features
@@ -21,39 +30,17 @@ Plan less, share more. Roam&Write is a travel blog web application where users c
 - **Route protection:** unauthenticated users are redirected to login; missing or unauthorized resources return user-friendly flash messages
 - **Comments:** authenticated users can leave comments on any post; comment authors and admins can delete comments
 - **Contact form:** visitors can send a message directly through the site
-- **About page:** overview of the platform and its purpose
 - **Responsive design:** layout adapts across desktop, tablet, and mobile screen sizes
+
+### AI Features
+
+- **AI trip insights:** each post automatically generates atmosphere descriptors powered by Gemini
+- **AI-suggested destinations:** AI suggests 3 destinations similar in character to the post, each linking to Google Flights
+- **AI chat:** readers can ask Atlas, an AI travel assistant, questions about the post using multi-turn conversation
+
 
 ## Getting Started
 
- Access the web application here:
+Visit
  [Roam&Write](https://roam-and-write-aafc68872502.herokuapp.com/)    
 
-## Running Locally
-
-1. Clone the repository and create a virtual environment
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-
-2. Install dependencies
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Create a `.env` file in the project root
-
-   ```
-   SECRET_KEY=secret-key
-   MAIL_SERVER=chosen-mail-server
-   MAIL_USERNAME=username-or-email
-   MAIL_PASSWORD=app-password
-   ```
-
-4. Run the development server
-   ```bash
-   python main.py
-   ```
-
-5. Visit `http://localhost:5001`
