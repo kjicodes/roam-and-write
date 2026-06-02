@@ -1,10 +1,8 @@
 # Roam&Write
 
-<img src="static/images/site-screenshot.png" alt="Roam&Write Home" width="600"/>
-
-<img src="static/images/all-posts.png" alt="All Blog Posts" width="600"/>
-
-<img src="static/images/ai-insights.png" alt="AI Insights" width="600"/>
+<img src="static/images/site-screenshot.png" alt="Roam&Write Home" width="400"/>
+<img src="static/images/all-posts.png" alt="All Blog Posts" width="400"/>
+<img src="static/images/ai-insights.png" alt="AI Insights" width="400"/>
 
 
 Plan less, share more. Roam&Write is a travel blog web application where users can document and share their travel experiences with readers and fellow adventurers. 
