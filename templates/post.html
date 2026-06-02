@@ -54,7 +54,7 @@
         <div class="row align-items-center justify-content-center pt-3 pt-lg-4 gap-4">
             {% if post.ai_similar_destinations %}
             <div class="col-10 col-md-4 col-lg-3">
-                <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> Explore Similar Destinations</p>
+                <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> AI-Suggested Destinations</p>
                 <div class="ai-destinations-scroll">
                     {% for destination in post.ai_similar_destinations.split(", ") %}
                     <a href="https://www.google.com/flights?q=flights+to+{{ destination }}" class="ai-destination-tag text-decoration-none" target="_blank">{{ destination }}</a>
