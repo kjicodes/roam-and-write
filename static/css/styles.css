@@ -700,6 +700,74 @@ body:has(#verify-email-page) {
     margin: 0 0.5rem;
 }
 
+/* AI-Generated Summary Box */
+.ai-summary-box {
+    background-color: #FFEAD3;
+}
+
+.ai-summary-label {
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A82323;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.ai-word {
+    font-size: 1.05rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    cursor: default;
+}
+
+.ai-word:hover {
+    transform: translateY(-3px);
+    background-color: #F0F0F0;
+    border-color: #A82323;
+}
+
+.ai-label-icon {
+    font-size: 1.2rem;
+}
+
+.ai-destinations-label {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.75);
+      font-weight: 700;
+      margin-bottom: 0;
+}
+
+.ai-destinations-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-destination-tag {
+  font-size: 1.05rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: black;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  cursor: default;
+  text-align: center;
+}
+
+.ai-destination-tag:hover {
+  transform: translateY(-3px);
+  border-color: black;
+}
+
+
+
 
 
 
