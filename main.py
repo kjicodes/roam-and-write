@@ -3,7 +3,7 @@ from datetime import date
 from functools import wraps
 from flask_mail import Mail, Message
 from smtplib import SMTPException
-from flask import Flask, render_template, redirect, url_for, request, flash, abort
+from flask import Flask, render_template, redirect, url_for, request, flash, abort, jsonify
 from flask_bootstrap import Bootstrap5
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from sqlalchemy import desc
@@ -16,14 +16,14 @@ from dotenv import load_dotenv
 from extensions import db
 from models import User, BlogPost, Comment, Contact
 from google import genai
+from google.genai import types
 
 load_dotenv()
 
-
-#Initialize Flask app
+# Initialize Flask app
 app = Flask(__name__)
 
-#Set config vars
+# Set config vars
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER")
 app.config["MAIL_PORT"] = 587
@@ -37,10 +37,10 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "pool_recycle": 300,
 }
 
-#Initialize Bootstrap-Flask
+# Initialize Bootstrap-Flask
 Bootstrap5(app)
 
-#Configure db uri
+# Configure db uri
 uri = os.environ.get("DATABASE_URL", "sqlite:///travel-blog-posts.db")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
@@ -49,28 +49,28 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-
-#Configure Flask Login
+# Configure Flask Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "error"
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, user_id)
 
 
-#Initialize Flask-Mail
+# Initialize Flask-Mail
 mail = Mail(app)
 
-#Initialize Gen AI
+# Initialize Gen AI
 client = genai.Client(api_key=os.environ.get("GOOGLE_GEMINI_API_KEY"))
 
 
 def generate_post_insights(post_body):
     response = client.models.generate_content(
-        model="gemini-3.1-flash-lite",
+        model="gemini-3.5-flash",
         contents=f"""You are analyzing a travel blog post for display on a travel journaling app.
               Given the following post, return a list of the following:
               
@@ -84,7 +84,7 @@ def generate_post_insights(post_body):
 
 def generate_similar_destinations(post_body):
     response = client.models.generate_content(
-        model="gemini-3.1-flash-lite",
+        model="gemini-3.5-flash",
         contents=f"""You are a travel recommendation assistant for a travel journaling app.
               Given the following travel blog post, suggest 3 destinations that are similar in character, atmosphere, or experience type.
             
@@ -95,8 +95,68 @@ def generate_similar_destinations(post_body):
     return response.text
 
 
-#Create admin-or-owner decorator
-#Admin can delete any post/comment
+@app.route("/chat/<int:post_id>", methods=["POST"])
+def chat_with_post(post_id):
+    post = db.session.get(BlogPost, post_id)
+    if not post:
+        return jsonify({ "error": "Post not found." }), 404
+
+    # User's msg
+    data = request.get_json()
+    user_message = data.get("message")
+    if not user_message:
+        return jsonify({ "error": "No message provided." }), 400
+    print(f"User message: {user_message}")
+
+    history = data.get("history", [])
+    print(f"History: {history}")
+
+    #Create new chat session
+    chat = client.chats.create(
+        model="gemini-3.5-flash",
+        history=history,
+        config=types.GenerateContentConfig(
+            # tools=[types.Tool(google_search=types.GoogleSearch())],
+            system_instruction=f"""Your name is Atlas and you are a knowledgeable travel assistant for a specific travel blog post.
+            You are answering questions in the context of a specific blog post, but you are not limited to only the information provided in the post.
+            You can draw on your broader knowledge to answer any question related to the post's location, culture, travel tips, or experiences.
+            Use the post details below as your primary context, but feel free to expand beyond them.
+            Keep all responses concise - no more than 3 sentences.
+            
+            Title: {post.title}
+            Subtitle: {post.subtitle}
+            Location: {post.location}
+            Date: {post.date}
+            Rating: {post.rating}
+            Times Visited: {post.num_times_visited}
+            Would Visit Again: {post.visit_again}
+            Post: {post.body}"""
+        )
+    )
+
+    #Reply from Gemini
+    response = chat.send_message(user_message)
+    updated_history = history + [
+        {
+            "role": "user",
+            "parts": [{ "text": user_message }]
+        },
+        {
+            "role": "model",
+            "parts": [{ "text": response.text }]
+        }
+    ]
+    print(f"Updated history: {updated_history}")
+
+    return jsonify({
+        "reply": response.text,
+        "history": updated_history
+    })
+
+
+
+# Create admin-or-owner decorator
+# Admin can delete any post/comment
 def admin_or_owner(model, resource_id):
     def decorator(f):
         @wraps(f)
@@ -158,7 +218,7 @@ def register():
             flash("Email already exists. Please login in.", "error")
             return redirect(url_for("login"))
         else:
-            #Build confirmation URL and include in the verification email
+            # Build confirmation URL and include in the verification email
             token = generate_verification_token(new_user.id)
             new_user.verification_token = token
             db.session.commit()
@@ -180,6 +240,7 @@ def register():
                 return render_template("verify-email.html", user=new_user)
 
     return render_template("register.html", form=form)
+
 
 @app.route("/register/verify/<int:user_id>")
 def resend_verification_email(user_id):
@@ -264,12 +325,13 @@ def logout():
     flash("You have successfully logged out.", "success")
     return redirect(url_for("login"))
 
+
 @app.route("/")
 def get_all_posts():
-
     all_posts = db.session.execute(db.select(BlogPost).order_by(desc(BlogPost.id))).scalars().all()
 
     return render_template("index.html", posts=all_posts)
+
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def get_post(post_id):
@@ -325,6 +387,7 @@ def create_post():
 
     return render_template("add-post.html", form=form)
 
+
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 @login_required
 def update_post(post_id):
@@ -332,16 +395,16 @@ def update_post(post_id):
     if not post:
         flash("This post no longer exists.", "error")
         return redirect(url_for("get_all_posts"))
-    
+
     edit_form = CreatePostForm(
-        title = post.title,
-        subtitle = post.subtitle,
-        location = post.location,
-        num_times_visited = post.num_times_visited,
-        visit_again = post.visit_again,
-        body = post.body,
-        rating = post.rating,
-        img_url = post.img_url,
+        title=post.title,
+        subtitle=post.subtitle,
+        location=post.location,
+        num_times_visited=post.num_times_visited,
+        visit_again=post.visit_again,
+        body=post.body,
+        rating=post.rating,
+        img_url=post.img_url,
         user=current_user
     )
 
@@ -362,6 +425,7 @@ def update_post(post_id):
         return redirect(url_for("get_post", post_id=post.id))
 
     return render_template("add-post.html", form=edit_form, is_edit=True)
+
 
 @app.route("/delete-post/<int:post_id>")
 @login_required
@@ -407,7 +471,6 @@ def contact():
         return redirect(url_for("contact"))
 
     return render_template("contact.html", form=form)
-
 
 
 if __name__ == "__main__":
