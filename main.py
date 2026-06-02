@@ -13,7 +13,7 @@ from forms import CreatePostForm, LoginForm, RegisterForm, ContactForm, CommentF
 from flask_wtf.csrf import CSRFError
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from dotenv import load_dotenv
-from extensions import db
+from extensions import db, migrate
 from models import User, BlogPost, Comment, Contact
 from google import genai
 from google.genai import types
@@ -46,6 +46,7 @@ if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db.init_app(app)
+migrate.init_app(app, db)
 with app.app_context():
     db.create_all()
 
