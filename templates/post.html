@@ -94,6 +94,26 @@
         {% endif %}
     </div>
 
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-11 col-md-8 col-lg-6">
+                <p class="fs-4 pb-2 chat-section-title">🤖 Ask AI about this post</p>
+                <div id="chat-widget" data-post-id="{{ post.id }}" class="chat-widget">
+                    <div id="chat-messages" class="chat-messages mb-3"></div>
+                    <div id="chat-typing" class="chat-typing mb-3 d-none">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input type="text" id="chat-input" class="form-control chat-input"
+                               placeholder="Ask a question about this post...">
+                        <button id="chat-send" class="btn chat-send-btn">&#10148;</button>
+                    </div>
+                    <p class="chat-disclaimer">Responses are AI-generated and may not be fully accurate.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container post-page-main pb-5">
         <div class="row justify-content-center">
             <div class="col-11 col-md-8 col-lg-6">
@@ -150,5 +170,6 @@
     </div>
 </div>
 
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 
 {% include 'footer.html' %} {% endblock %}
