@@ -31,6 +31,8 @@ class BlogPost(db.Model):
     body: Mapped[str] = mapped_column(Text, nullable=False)
     rating: Mapped[str] = mapped_column(String(250), nullable=False)
     img_url: Mapped[str] = mapped_column(Text, nullable=False)
+    ai_insights: Mapped[str] = mapped_column(String(250), nullable=False)
+    ai_similar_destinations: Mapped[str] = mapped_column(String(250), nullable=False)
     user = relationship("User", back_populates="posts")
     comments = relationship("Comment", back_populates="post")
 

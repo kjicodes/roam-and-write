@@ -15,6 +15,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from dotenv import load_dotenv
 from extensions import db
 from models import User, BlogPost, Comment, Contact
+from google import genai
 
 load_dotenv()
 
@@ -31,6 +32,10 @@ app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+}
 
 #Initialize Bootstrap-Flask
 Bootstrap5(app)
@@ -58,6 +63,36 @@ def load_user(user_id):
 
 #Initialize Flask-Mail
 mail = Mail(app)
+
+#Initialize Gen AI
+client = genai.Client(api_key=os.environ.get("GOOGLE_GEMINI_API_KEY"))
+
+
+def generate_post_insights(post_body):
+    response = client.models.generate_content(
+        model="gemini-3.1-flash-lite",
+        contents=f"""You are analyzing a travel blog post for display on a travel journaling app.
+              Given the following post, return a list of the following:
+              
+              5 single words or short phrases describing how the trip felt, and the overall atmosphere or experience type, e.g. serene, reflective, off the beaten path, atmospheric.
+              
+              Return only a comma-separated list. No sentences, no extra commentary.
+              Post: {post_body}"""
+    )
+    return response.text
+
+
+def generate_similar_destinations(post_body):
+    response = client.models.generate_content(
+        model="gemini-3.1-flash-lite",
+        contents=f"""You are a travel recommendation assistant for a travel journaling app.
+              Given the following travel blog post, suggest 3 destinations that are similar in character, atmosphere, or experience type.
+            
+              Return only a comma-separated list in this exact format: City (Country), City (Country), ... 
+              No sentences, no numbering, no extra commentary.
+              Post: {post_body}"""
+    )
+    return response.text
 
 
 #Create admin-or-owner decorator
@@ -88,7 +123,6 @@ def admin_or_owner(model, resource_id):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
-
 
 
 def generate_verification_token(user_id):
@@ -232,7 +266,9 @@ def logout():
 
 @app.route("/")
 def get_all_posts():
+
     all_posts = db.session.execute(db.select(BlogPost).order_by(desc(BlogPost.id))).scalars().all()
+
     return render_template("index.html", posts=all_posts)
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
@@ -261,10 +297,12 @@ def get_post(post_id):
 
     return render_template("post.html", post=post, form=form, comments=comments)
 
+
 @app.route("/add-post", methods=["GET", "POST"])
 @login_required
 def create_post():
     form = CreatePostForm()
+
     if form.validate_on_submit():
         new_post = BlogPost(
             title=form.title.data,
@@ -276,6 +314,8 @@ def create_post():
             body=form.body.data,
             rating=form.rating.data,
             img_url=form.img_url.data,
+            ai_insights=generate_post_insights(form.body.data),
+            ai_similar_destinations=generate_similar_destinations(form.body.data),
             user=current_user
         )
         db.session.add(new_post)
@@ -314,6 +354,8 @@ def update_post(post_id):
         post.body = edit_form.body.data
         post.rating = edit_form.rating.data
         post.img_url = edit_form.img_url.data
+        post.ai_insights = generate_post_insights(edit_form.body.data)
+        post.ai_similar_destinations = generate_similar_destinations(edit_form.body.data)
         post.user = current_user
 
         db.session.commit()
