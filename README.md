@@ -1,14 +1,14 @@
 # Roam&Write
 
-<table>
-  <tr>
-    <td><img src="static/images/site-screenshot.png" width="400"/></td>
-    <td><img src="static/images/all-posts.png" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="static/images/ai-insights.png" width="400"/></td>
-  </tr>
-</table>
+
+<img src="static/images/site-screenshot.png" width="600"/>
+
+<img src="static/images/all-posts.png" width="600"/>
+
+<img src="static/images/ai-insights.png" width="600"/>
+
+<img src="static/images/ai-chatbox.png" width="600"/>
+
 
 
 
