@@ -7,7 +7,7 @@
 
 <img src="static/images/ai-insights.png" width="600"/>
 
-<img src="static/images/ai-chatbox.png" width="600"/>
+<img src="static/images/ai-chat.png" width="600"/>
 
 
 
