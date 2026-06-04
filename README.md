@@ -1,18 +1,5 @@
 # Roam&Write
 
-
-<img src="static/images/site-screenshot.png" width="600"/>
-
-<img src="static/images/all-posts.png" width="600"/>
-
-<img src="static/images/ai-insights.png" width="600"/>
-
-<img src="static/images/ai-chat.png" width="600"/>
-
-
-
-
-
 Plan less, share more. Roam&Write is a travel blog web application where users can document and share their travel experiences with readers and fellow adventurers. 
 Powered by the Google Gemini API, each post surfaces AI-generated trip insights, similar destination suggestions, and an interactive AI chat assistant. 
 Users can create an account, publish travel posts, browse stories from others, and engage through comments.
@@ -44,6 +31,22 @@ Users can create an account, publish travel posts, browse stories from others, a
 - **AI-suggested destinations:** AI suggests 3 destinations similar in character to the post, each linking to Google Flights
 - **AI chat:** readers can ask Atlas, an AI travel assistant, questions about the post using multi-turn conversation
 
+
+### Screenshots
+
+<img src="static/images/screenshot-loginpage.png" width="600"/>
+
+<img src="static/images/screenshot-homepage-loggedin.png" width="600"/>
+
+<img src="static/images/screenshot-homepage-allposts.png" width="600"/>
+
+<img src="static/images/screenshot-postpage.png" width="600"/>
+
+<img src="static/images/screenshot-addpost.png" width="600"/>
+
+<img src="static/images/screenshot-ai-chatbox.png" width="600"/>
+
+<img src="static/images/screenshot-postpage-comments.png" width="600"/>
 
 ## Getting Started
 
