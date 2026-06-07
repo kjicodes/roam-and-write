@@ -700,9 +700,45 @@ body:has(#verify-email-page) {
     margin: 0 0.5rem;
 }
 
-/* AI-Generated Insights and Similar Destinations */
+/* AI-GENERATED INSIGHTS AND SIMILAR DESTINATIONS */
 .ai-summary-box {
-    background-color: #FFEAD3;
+    background-color: transparent;
+    position: relative;
+    z-index: 0;
+}
+
+.ai-destinations-box {
+    background-color: transparent;
+    position: relative;
+    z-index: 0;
+}
+
+.ai-summary-box::before,
+.ai-destinations-box::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(1rem + 2px);
+    background: conic-gradient(
+        from var(--angle, 0deg),
+        #A82323,
+        #E05C5C,
+        #FFAD99,
+        #E05C5C,
+        #A82323
+    );
+    z-index: -1;
+    animation: spin-border 3s linear infinite;
+}
+
+.ai-summary-box::after,
+.ai-destinations-box::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #FFEAD3;
+    border-radius: calc(1rem - 2px);
+    z-index: -1;
 }
 
 .ai-summary-label {
@@ -729,30 +765,35 @@ body:has(#verify-email-page) {
 }
 
 .ai-destinations-label {
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #A82323;
-      font-weight: 700;
-      margin-bottom: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A82323;
+    font-weight: 700;
+    margin-bottom: 0;
 }
 
 .ai-destinations-scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .ai-destination-tag {
   font-size: 1.05rem;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  background-color: #FFEAD3;
+  background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  color: black;
+  color: #A82323;
   transition: transform 0.2s ease, border-color 0.2s ease;
-  cursor: default;
+  cursor: pointer;
   text-align: center;
+}
+
+.ai-destination-tag::after {
+    content: " ↗";
+    font-size: 0.8rem;
 }
 
 .ai-destination-tag:hover {
@@ -762,17 +803,59 @@ body:has(#verify-email-page) {
 }
 
 
-/* AI Chatbox */
+/* AI CHATBOX STYLES */
+@keyframes spin-border {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
 .chat-section-title {
   color: #A82323;
 }
-  
+
+/* Chat widget - holds chatbox, input field, button, & AI disclaimer */
 .chat-widget {
-  background-color: #FFEAD3;
+  background-color: transparent;
   border-radius: 1rem;
   padding: 1.25rem;
+  position: relative;
+  z-index: 0;
 }
 
+.chat-widget::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(1rem + 2px);
+    background: conic-gradient(
+        from var(--angle, 0deg),
+        #A82323,
+        #E05C5C,
+        #FFAD99,
+        #E05C5C,
+        #A82323
+    );
+    z-index: -1;
+    animation: spin-border 3s linear infinite;
+}
+
+.chat-widget::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #FFEAD3;
+    border-radius: calc(1rem - 2px);
+    z-index: -1;
+}
+
+/* Chatbox div for user and AI chat bubbles */
 .chat-messages {
   display: flex;
   flex-direction: column;
@@ -782,6 +865,7 @@ body:has(#verify-email-page) {
   padding: 0.5rem;
 }
 
+/* Base class for user and AI chat bubbles (common styles) */
 .chat-message {
   max-width: 80%;
   padding: 0.5rem 0.875rem;
@@ -790,12 +874,14 @@ body:has(#verify-email-page) {
   line-height: 1.5;
 }
 
+/* User chat bubble */
 .chat-message-user {
   align-self: flex-end;
   background-color: #A82323;
   color: white;
 }
 
+/* AI chat bubble */
 .chat-message-model {
   align-self: flex-start;
   background-color: white;
@@ -803,6 +889,7 @@ body:has(#verify-email-page) {
   border-left: 3px solid #A82323;
 }
 
+/* User input field */
 .chat-input {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -814,9 +901,7 @@ body:has(#verify-email-page) {
 }
 
 .chat-input:focus {
-  background-color: white;
   border-color: #A82323;
-  color: #1a1a1a;
   box-shadow: 0 0 0 0.2rem rgba(168, 35, 35, 0.25);
 }
 
@@ -834,13 +919,7 @@ body:has(#verify-email-page) {
   color: white;
 }
 
-.chat-disclaimer {
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.45);
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-}
-
+/* For AI chat bubbles */
 .chat-ai-label {
   display: block;
   font-size: 0.7rem;
@@ -850,6 +929,15 @@ body:has(#verify-email-page) {
   color: #A82323;
   margin-bottom: 0.25rem;
 }
+
+.chat-disclaimer {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.45);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+
 
 /* Typing indicator */
 @keyframes typing-bounce {
