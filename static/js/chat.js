@@ -14,7 +14,7 @@ function appendMessage(role, text) {
     const label = document.createElement("span");
     label.classList.add("chat-ai-label");
     label.textContent = "✦ Atlas";
-    div.appendChild(label);
+    div.appendChild(label); //adds <span> tag to parent container (div)
   }
 
   div.appendChild(document.createTextNode(text));
@@ -25,6 +25,7 @@ function appendMessage(role, text) {
 async function sendMessage() {
   //User input
   const message = chatInput.value.trim();
+  console.log(`Msg: ${message}`)
   if (!message) return;
 
   chatInput.value = "";
@@ -35,7 +36,7 @@ async function sendMessage() {
   typingIndicator.classList.remove("d-none");
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  //Using custom API
+  //Send user msg to the backend, along with current chat history
   const response = await fetch(`/chat/${postId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,9 +45,11 @@ async function sendMessage() {
 
   typingIndicator.classList.add("d-none");
 
+  //Await AI response from backend
   const data = await response.json();
-  appendMessage("model", data.reply);
+  appendMessage("model", data.reply); //Access 'reply' key from response obj and inserts it into chatbox using custom styling
   chatHistory = data.history;
+  // console.log(`Frontend history: ${data.history.map( entry => `role: ${entry.role} , parts: ${entry.parts[0].text} `)}`)
 }
 
 chatSend.addEventListener("click", sendMessage);
