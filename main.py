@@ -56,7 +56,6 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "error"
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, user_id)
@@ -68,33 +67,25 @@ mail = Mail(app)
 # Initialize Gen AI
 client = genai.Client(api_key=os.environ.get("GOOGLE_GEMINI_API_KEY"))
 
-
 def generate_post_insights(post_body):
     response = client.models.generate_content(
         model="gemini-3.5-flash",
         contents=f"""You are analyzing a travel blog post for display on a travel journaling app.
-              Given the following post, return a list of the following:
-              
-              5 single words or short phrases describing how the trip felt, and the overall atmosphere or experience type, e.g. serene, reflective, off the beaten path, atmospheric.
-              
-              Return only a comma-separated list. No sentences, no extra commentary.
-              Post: {post_body}"""
+            Given the following post, return a list of the following:
+            5 single words or short phrases describing how the trip felt, and the overall atmosphere or experience type, e.g. serene, reflective, off the beaten path, atmospheric. 
+            Return only a comma-separated list. No sentences, no extra commentary. Post: {post_body}"""
     )
     return response.text
-
 
 def generate_similar_destinations(post_body):
     response = client.models.generate_content(
         model="gemini-3.5-flash",
         contents=f"""You are a travel recommendation assistant for a travel journaling app.
-              Given the following travel blog post, suggest 3 destinations that are similar in character, atmosphere, or experience type.
-            
-              Return only a comma-separated list in this exact format: City (Country), City (Country), ... 
-              No sentences, no numbering, no extra commentary.
-              Post: {post_body}"""
+          Given the following travel blog post, suggest 3 destinations that are similar in character, atmosphere, or experience type.
+          Return only a comma-separated list in this exact format: City (Country), City (Country), ... 
+          No sentences, no numbering, no extra commentary. Post: {post_body}"""
     )
     return response.text
-
 
 @app.route("/chat/<int:post_id>", methods=["POST"])
 def chat_with_post(post_id):
@@ -112,31 +103,33 @@ def chat_with_post(post_id):
     history = data.get("history", [])
     print(f"History: {history}")
 
-    #Create new chat session
+    #Create new chat session with AI
     chat = client.chats.create(
         model="gemini-3.5-flash",
         history=history,
         config=types.GenerateContentConfig(
             # tools=[types.Tool(google_search=types.GoogleSearch())],
             system_instruction=f"""Your name is Atlas and you are a knowledgeable travel assistant for a specific travel blog post.
-            You are answering questions in the context of a specific blog post, but you are not limited to only the information provided in the post.
-            You can draw on your broader knowledge to answer any question related to the post's location, culture, travel tips, or experiences.
-            Use the post details below as your primary context, but feel free to expand beyond them.
-            Keep all responses concise - no more than 3 sentences.
-            
-            Title: {post.title}
-            Subtitle: {post.subtitle}
-            Location: {post.location}
-            Date: {post.date}
-            Rating: {post.rating}
-            Times Visited: {post.num_times_visited}
-            Would Visit Again: {post.visit_again}
-            Post: {post.body}"""
+                You are answering questions in the context of a specific blog post, but you are not limited to only the information provided in the post.
+                You can draw on your broader knowledge to answer any question related to the post's location, culture, travel tips, or experiences.
+                Use the post details below as your primary context, but feel free to expand beyond them.
+                Keep all responses concise. No more than 3 short-mid long sentences.
+                
+                Title: {post.title}
+                Subtitle: {post.subtitle}
+                Location: {post.location}
+                Date: {post.date}
+                Rating: {post.rating}
+                Times Visited: {post.num_times_visited}
+                Would Visit Again: {post.visit_again}
+                Post: {post.body}"""
         )
     )
 
-    #Reply from Gemini
+    #Generated reply from Gemini
     response = chat.send_message(user_message)
+
+    #Update chat history with latest user message and AI response
     updated_history = history + [
         {
             "role": "user",
@@ -149,11 +142,11 @@ def chat_with_post(post_id):
     ]
     print(f"Updated history: {updated_history}")
 
+    #Return AI response and updated chat history
     return jsonify({
         "reply": response.text,
         "history": updated_history
     })
-
 
 
 # Create admin-or-owner decorator
