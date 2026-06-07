@@ -51,14 +51,16 @@
                 <p>{{ post.body }}</p>
             </div>
         </div>
-        <div class="row align-items-center justify-content-center pt-3 pt-lg-4 gap-4">
+        <div class="row align-items-center justify-content-center pt-2 pt-lg-4">
             {% if post.ai_similar_destinations %}
             <div class="col-10 col-md-4 col-lg-3">
-                <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> AI-Suggested Destinations</p>
-                <div class="ai-destinations-scroll">
-                    {% for destination in post.ai_similar_destinations.split(", ") %}
-                    <a href="https://www.google.com/flights?q=flights+to+{{ destination }}" class="ai-destination-tag text-decoration-none" target="_blank">{{ destination }}</a>
-                    {% endfor %}
+                <div class="ai-destinations-box rounded-3 p-4 mt-4 mb-5">
+                    <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> Explore Similar Destinations</p>
+                    <div class="ai-destinations-scroll">
+                        {% for destination in post.ai_similar_destinations.split(", ") %}
+                        <a href="https://www.google.com/flights?q=flights+to+{{ destination }}" class="ai-destination-tag text-decoration-none" target="_blank">{{ destination }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             {% endif %}
@@ -98,6 +100,8 @@
         {% endif %}
     </div>
 
+
+    <!-- AI Chat Box -->
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-11 col-md-8 col-lg-6">
