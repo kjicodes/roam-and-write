@@ -4,6 +4,7 @@ Plan less, share more. Roam&Write is a travel blog web application where users c
 Powered by the Google Gemini API, each post surfaces AI-generated trip insights, similar destination suggestions, and an interactive AI chat assistant. 
 Users can create an account, publish travel posts, browse stories from others, and engage through comments.
 
+🔗 Live Demo: [Roam&Write](https://roam-and-write-aafc68872502.herokuapp.com/) 
 
 ## Tech Stack
 
@@ -48,8 +49,4 @@ Users can create an account, publish travel posts, browse stories from others, a
 
 <img src="static/images/screenshot-postpage-comments.png" width="600"/>
 
-## Getting Started
-
-Visit
- [Roam&Write](https://roam-and-write-aafc68872502.herokuapp.com/)    
 
