@@ -390,33 +390,37 @@ def update_post(post_id):
         flash("This post no longer exists.", "error")
         return redirect(url_for("get_all_posts"))
 
-    edit_form = CreatePostForm(
-        title=post.title,
-        subtitle=post.subtitle,
-        location=post.location,
-        num_times_visited=post.num_times_visited,
-        visit_again=post.visit_again,
-        body=post.body,
-        rating=post.rating,
-        img_url=post.img_url,
-        user=current_user
-    )
+    if current_user.id == post.user_id:
+        edit_form = CreatePostForm(
+            title=post.title,
+            subtitle=post.subtitle,
+            location=post.location,
+            num_times_visited=post.num_times_visited,
+            visit_again=post.visit_again,
+            body=post.body,
+            rating=post.rating,
+            img_url=post.img_url,
+            user=current_user
+        )
 
-    if edit_form.validate_on_submit():
-        post.title = edit_form.title.data
-        post.subtitle = edit_form.subtitle.data
-        post.location = edit_form.location.data
-        post.num_times_visited = edit_form.num_times_visited.data
-        post.visit_again = edit_form.visit_again.data
-        post.body = edit_form.body.data
-        post.rating = edit_form.rating.data
-        post.img_url = edit_form.img_url.data
-        post.ai_insights = generate_post_insights(edit_form.body.data)
-        post.ai_similar_destinations = generate_similar_destinations(edit_form.body.data)
-        post.user = current_user
+        if edit_form.validate_on_submit():
+            post.title = edit_form.title.data
+            post.subtitle = edit_form.subtitle.data
+            post.location = edit_form.location.data
+            post.num_times_visited = edit_form.num_times_visited.data
+            post.visit_again = edit_form.visit_again.data
+            post.body = edit_form.body.data
+            post.rating = edit_form.rating.data
+            post.img_url = edit_form.img_url.data
+            post.ai_insights = generate_post_insights(edit_form.body.data)
+            post.ai_similar_destinations = generate_similar_destinations(edit_form.body.data)
+            post.user = current_user
 
-        db.session.commit()
-        return redirect(url_for("get_post", post_id=post.id))
+            db.session.commit()
+            return redirect(url_for("get_post", post_id=post.id))
+    else:
+        flash("You are not allowed to edit this post.", "error")
+        return redirect(url_for("get_all_posts"))
 
     return render_template("add-post.html", form=edit_form, is_edit=True)
 
@@ -426,8 +430,11 @@ def update_post(post_id):
 @admin_or_owner(BlogPost, "post_id")
 def delete_post(post_id):
     post = db.session.get(BlogPost, post_id)
-    db.session.delete(post)
-    db.session.commit()
+    if current_user.id == post.user_id:
+        db.session.delete(post)
+        db.session.commit()
+    else:
+        flash("You are not allowed to delete this post.", "error")
     return redirect(url_for("get_all_posts"))
 
 
