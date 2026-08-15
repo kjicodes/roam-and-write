@@ -968,6 +968,10 @@ body:has(#verify-email-page) {
   animation-delay: 0.4s;
 }
 
+.ai-loading-msg {
+  color: #A82323;
+}
+
 
 
 

@@ -6,3 +6,5 @@ instance
 .claude
 __pycache__
 CLAUDE.md
+notes.txt
+dump.rdb
