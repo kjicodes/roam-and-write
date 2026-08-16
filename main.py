@@ -70,7 +70,7 @@ client = genai.Client(api_key=os.environ.get("GOOGLE_GEMINI_API_KEY"))
 
 def generate_post_insights(post_body):
     response = client.models.generate_content(
-        model="gemini-3.5-flash",
+        model="gemini-3.6-flash",
         contents=f"""You are analyzing a travel blog post for display on a travel journaling app.
             Given the following post, return a list of the following:
             5 single words or short phrases describing how the trip felt, and the overall atmosphere or experience type, e.g. serene, reflective, off the beaten path, atmospheric. 
@@ -80,7 +80,7 @@ def generate_post_insights(post_body):
 
 def generate_similar_destinations(post_body):
     response = client.models.generate_content(
-        model="gemini-3.5-flash",
+        model="gemini-3.6-flash",
         contents=f"""You are a travel recommendation assistant for a travel journaling app.
           Given the following travel blog post, suggest 3 destinations that are similar in character, atmosphere, or experience type.
           Return only a comma-separated list in this exact format: City (Country), City (Country), ... 
@@ -106,7 +106,7 @@ def chat_with_post(post_id):
 
     #Create new chat session with AI
     chat = client.chats.create(
-        model="gemini-3.5-flash",
+        model="gemini-3.6-flash",
         history=history,
         config=types.GenerateContentConfig(
             # tools=[types.Tool(google_search=types.GoogleSearch())],
@@ -409,6 +409,9 @@ def update_post(post_id):
         )
 
         if edit_form.validate_on_submit():
+            if post.body != edit_form.body.data:
+                is_post_body_updated = True
+
             post.title = edit_form.title.data
             post.subtitle = edit_form.subtitle.data
             post.location = edit_form.location.data
@@ -418,8 +421,12 @@ def update_post(post_id):
             post.rating = edit_form.rating.data
             post.img_url = edit_form.img_url.data
             post.user = current_user
-
             db.session.commit()
+
+            if is_post_body_updated:
+                generate_ai_content.delay(post.id)
+                print("Queued AI generation for edited post...")
+
             return redirect(url_for("get_post", post_id=post.id))
     else:
         flash("You are not allowed to edit this post.", "error")
