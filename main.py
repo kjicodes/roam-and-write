@@ -17,6 +17,7 @@ from extensions import db, migrate
 from models import User, BlogPost, Comment, Contact
 from google import genai
 from google.genai import types
+from tasks import generate_ai_content
 
 load_dotenv()
 
@@ -47,8 +48,8 @@ if uri.startswith("postgres://"):
 app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db.init_app(app)
 migrate.init_app(app, db)
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 # Configure Flask Login
 login_manager = LoginManager()
@@ -370,14 +371,18 @@ def create_post():
             body=form.body.data,
             rating=form.rating.data,
             img_url=form.img_url.data,
-            ai_insights=generate_post_insights(form.body.data),
-            ai_similar_destinations=generate_similar_destinations(form.body.data),
             user=current_user
         )
         db.session.add(new_post)
         db.session.commit()
-        post_id = db.session.execute(db.select(BlogPost).where(BlogPost.title == form.title.data)).scalar().id
-        return redirect(url_for("get_post", post_id=post_id))
+        print(new_post.id)
+
+        # run task to generate ai insights and similar destinations asynchronously
+        #pass in id from newly saved post
+        generate_ai_content.delay(new_post.id)
+        print("Queued AI generation for new post...")
+
+        return redirect(url_for("get_post", post_id=new_post.id))
 
     return render_template("add-post.html", form=form)
 
@@ -412,15 +417,13 @@ def update_post(post_id):
             post.body = edit_form.body.data
             post.rating = edit_form.rating.data
             post.img_url = edit_form.img_url.data
-            post.ai_insights = generate_post_insights(edit_form.body.data)
-            post.ai_similar_destinations = generate_similar_destinations(edit_form.body.data)
             post.user = current_user
 
             db.session.commit()
             return redirect(url_for("get_post", post_id=post.id))
     else:
         flash("You are not allowed to edit this post.", "error")
-        return redirect(url_for("get_all_posts"))
+        return redirect(url_for("get_post"))
 
     return render_template("add-post.html", form=edit_form, is_edit=True)
 
