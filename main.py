@@ -421,6 +421,9 @@ def update_post(post_id):
             post.body = edit_form.body.data
             post.rating = edit_form.rating.data
             post.img_url = edit_form.img_url.data
+            post.ai_insights = None
+            post.ai_similar_destinations = None
+            post.ai_status = "pending"
             post.user = current_user
             db.session.commit()
 
