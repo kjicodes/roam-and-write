@@ -409,6 +409,7 @@ def update_post(post_id):
         )
 
         if edit_form.validate_on_submit():
+            is_post_body_updated = False
             if post.body != edit_form.body.data:
                 is_post_body_updated = True
 
