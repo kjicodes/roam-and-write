@@ -40,7 +40,7 @@
                 <h3 class="post-subtitle fw-normal fst-italic opacity-75 pb-3">{{ post.subtitle }}</h3>
                 <div class="ai-summary-box rounded-3 p-4 mt-4 mb-5">
                 {% if post.ai_insights %}
-                    <p class="ai-summary-label mb-3"><span class="ai-label-icon">💡</span> AI Trip Insights</p>
+                    <p class="ai-summary-label mb-3"><span class="ai-label-icon">💡</span> ✦ Trip Insights</p>
                     <div class="d-flex flex-wrap gap-2">
                         {% for word in post.ai_insights.split(", ") %}
                         <span class="ai-word">{{ word.capitalize() }}</span>
@@ -49,7 +49,8 @@
                 {% elif post.ai_status == "failed" %}
                     <p class="ai-loading-msg fst-italic fw-bold">Trip insights couldn't be generated right now.</p>
                 {% else %}
-                    <p class="ai-loading-msg fw-bold">✦ <span class="fst-italic">Loading trip insights...</span></p>
+                    <p class="ai-loading-msg fw-bold">✦ <span class="fst-italic">Loading trip insights</span></p>
+                    <div class="loader"></div>
                 {% endif %}
                 </div>
                 <p>{{ post.body }}</p>
@@ -59,7 +60,7 @@
             <div class="col-10 col-md-4 col-lg-3">
                 <div class="ai-destinations-box rounded-3 p-4 mt-4 mb-5">
                 {% if post.ai_similar_destinations %}
-                    <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> Explore Similar Destinations</p>
+                    <p class="ai-destinations-label mb-3"><span class="ai-label-icon">🛫</span> ✦ Explore Similar Destinations</p>
                     <div class="ai-destinations-scroll">
                         {% for destination in post.ai_similar_destinations.split(", ") %}
                         <a href="https://www.google.com/flights?q=flights+to+{{ destination }}" class="ai-destination-tag text-decoration-none" target="_blank">{{ destination }}</a>
@@ -68,7 +69,8 @@
                 {% elif post.ai_status == "failed" %}
                     <p class="ai-loding-msg fst-italic fw-bold">Similar destination couldn't be generated right now.</p>
                 {% else %}
-                    <p class="ai-loading-msg fw-bold">✦ <span class="fst-italic">Loading similar destinations...</span></p>
+                    <p class="ai-loading-msg fw-bold">✦ <span class="fst-italic">Loading similar destinations</span></p>
+                    <div class="loader"></div>
                 {% endif %}
                 </div>
             </div>
@@ -113,8 +115,8 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-11 col-md-8 col-lg-6">
-                <p class="fs-4 pb-2 chat-section-title">🤖 Ask AI about this post</p>
                 <div id="chat-widget" data-post-id="{{ post.id }}" class="chat-widget">
+                    <p class="fs-4 pb-2 chat-section-title">🤖 ✦ Ask about this post</p>
                     <div id="chat-messages" class="chat-messages mb-3"></div>
                     <div id="chat-typing" class="chat-typing mb-3 d-none">
                         <span></span><span></span><span></span>
